@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lý Sơn Trip 2026 · 25–28/6 · Half Marathon</title>
+<meta name="description" content="Kế hoạch 4 ngày 3 đêm cho 6 người ra đảo Lý Sơn, kết hợp giải chạy Lý Sơn Half Marathon 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<style>
+:root {
+  --bg: #fafaf7;
+  --surface: #ffffff;
+  --ink: #1a1a1a;
+  --ink-soft: #555;
+  --ink-faint: #888;
+  --line: #ececec;
+  --accent: #e85a3c;
+  --accent-soft: #fdeae5;
+  --ocean: #2d6e8a;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.serif { font-family: 'Fraunces', Georgia, serif; letter-spacing: -0.02em; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+img { max-width: 100%; display: block; }
+
+/* Hero */
+.hero {
+  padding: 96px 0 64px;
+  text-align: center;
+}
+.hero .year {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(96px, 16vw, 200px);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(34px, 5vw, 56px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 22px;
+  line-height: 1.15;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero .lede {
+  max-width: 640px;
+  margin: 0 auto 28px;
+  color: var(--ink-soft);
+  font-size: 18px;
+}
+.hero .meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hero .meta strong { color: var(--ink); font-weight: 600; }
+.hero .meta .sep { color: var(--ink-faint); }
+.hero .race-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  margin-bottom: 20px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Generic section */
+section { padding: 72px 0; border-top: 1px solid var(--line); }
+.section-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(28px, 3.6vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.section-sub {
+  color: var(--ink-soft);
+  font-size: 16px;
+  margin-bottom: 40px;
+  max-width: 680px;
+}
+
+/* Goal cards */
+.expect-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.expect-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.expect-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.expect-card .icon { font-size: 30px; margin-bottom: 12px; line-height: 1; }
+.expect-card h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.expect-card p { color: var(--ink-soft); font-size: 14.5px; }
+
+/* Travel ribbon — Day 0 + Day 4 */
+.travel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 12px;
+  padding: 18px 24px;
+  display: grid;
+  grid-template-columns: minmax(180px, auto) 1fr;
+  gap: 28px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.travel.return-leg { margin-top: 20px; margin-bottom: 0; }
+.travel-tag {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-right: 1px solid var(--line);
+  padding-right: 24px;
+}
+.travel-tag .icon { font-size: 22px; line-height: 1; }
+.travel-tag .label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 2px;
+}
+.travel-tag .date { font-size: 13px; color: var(--ink-faint); }
+.travel-legs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+.leg .from-to {
+  font-family: 'Fraunces', serif;
+  font-size: 15.5px;
+  font-weight: 500;
+  margin-bottom: 2px;
+  letter-spacing: -0.01em;
+}
+.leg .time {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+
+.itinerary-h {
+  font-family: 'Fraunces', serif;
+  font-size: 26px;
+  font-weight: 500;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+
+/* Day cards — 2 col on desktop (4 days fits cleanly in 2x2) */
+.days {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.day {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px 26px;
+  display: flex;
+  flex-direction: column;
+}
+.day.race-day {
+  border-left: 3px solid var(--accent);
+  background: linear-gradient(180deg, var(--accent-soft) 0%, var(--surface) 18%);
+}
+.day.prerace {
+  border-left: 3px solid #d9b454;
+  background: linear-gradient(180deg, #fff8e6 0%, var(--surface) 18%);
+}
+.day-num {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.day.prerace .day-num { color: #b89230; }
+.race-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+.warn-badge {
+  display: inline-block;
+  background: #f0d488;
+  color: #6b5018;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+.day-date { font-size: 13px; color: var(--ink-faint); margin-bottom: 14px; }
+.day h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  font-weight: 500;
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+.day .day-theme {
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  font-style: italic;
+  margin-bottom: 10px;
+}
+.slot {
+  padding: 11px 0;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+}
+.slot:first-of-type { border-top: none; padding-top: 0; }
+.slot .when {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 3px;
+}
+.day.prerace .slot .when { color: #b89230; }
+.slot p { color: var(--ink-soft); line-height: 1.5; }
+.slot p b { color: var(--ink); font-weight: 600; }
+.slot p em { color: var(--accent); font-style: normal; font-weight: 500; }
+
+/* Lodging card */
+.lodging-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  padding: 24px 28px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 16px;
+  align-items: start;
+}
+.lodging-icon { font-size: 36px; line-height: 1; padding-top: 4px; }
+.lodging-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.lodging-card h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.lodging-address {
+  color: var(--ink-soft);
+  font-size: 14px;
+  margin: 4px 0 14px;
+}
+.lodging-stats > div {
+  font-size: 14px;
+  color: var(--ink-soft);
+  padding: 4px 0;
+  line-height: 1.5;
+}
+.lodging-stats strong { color: var(--ink); font-weight: 600; }
+.lodging-stats a { color: var(--accent); text-decoration: none; font-weight: 500; }
+.lodging-stats a:hover { text-decoration: underline; }
+.room-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.room {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.room b { color: var(--ink); display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; }
+
+/* Attractions */
+.attractions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.attraction {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+}
+.attraction .icon { font-size: 28px; line-height: 1; margin-bottom: 10px; }
+.attraction h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.attraction p { color: var(--ink-soft); font-size: 13.5px; line-height: 1.5; flex: 1; }
+.attraction .tags {
+  margin-top: 12px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.tag {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  background: var(--bg);
+}
+.tag.kid { color: var(--accent); border-color: var(--accent-soft); background: var(--accent-soft); }
+.tag.sunset { color: #8a5a1a; border-color: #f0e0a8; background: #fff8e6; }
+.tag.water { color: #1f5a73; border-color: #cde2ea; background: #e9f3f7; }
+
+/* Transport */
+.transport-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.transport-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px;
+}
+.transport-card .icon { font-size: 28px; margin-bottom: 12px; line-height: 1; }
+.transport-card h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.transport-card .route {
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  margin-bottom: 14px;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  letter-spacing: 0.04em;
+}
+.transport-card ul { list-style: none; padding: 0; margin: 0; }
+.transport-card li {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  padding: 7px 0;
+  border-top: 1px dashed var(--line);
+  line-height: 1.5;
+}
+.transport-card li:first-child { border-top: none; padding-top: 0; }
+.transport-card li b { color: var(--ink); font-weight: 600; }
+
+/* Food guide */
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.food-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 22px;
+}
+.food-card .icon { font-size: 26px; margin-bottom: 10px; line-height: 1; }
+.food-card h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 17.5px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.food-card p {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+.food-card p b { color: var(--ink); font-weight: 600; }
+
+/* Budget */
+.budget-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 32px 36px;
+  max-width: 720px;
+}
+.budget-card h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.budget-card .sub { color: var(--ink-faint); font-size: 13px; margin-bottom: 22px; }
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+  gap: 16px;
+}
+.row:last-of-type { border-bottom: none; }
+.row .num { color: var(--ink-soft); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.row .label-sub { display: block; font-size: 12px; color: var(--ink-faint); margin-top: 2px; }
+.row.total {
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 2px solid var(--ink);
+  border-bottom: none;
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 500;
+}
+.row.total .num { color: var(--accent); font-weight: 600; }
+.budget-note {
+  margin-top: 16px;
+  padding: 14px 18px;
+  background: #fff8e6;
+  border: 1px solid #f0e0a8;
+  border-radius: 10px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+/* Notes / warnings */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.note-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px;
+}
+.note-card.warn { border-left: 3px solid var(--accent); }
+.note-card.kid { border-left: 3px solid #2d6e8a; }
+.note-card.race { border-left: 3px solid #d9b454; background: linear-gradient(180deg, #fff8e6 0%, var(--surface) 60%); }
+.note-card.weather { border-left: 3px solid #2d6e8a; }
+.note-card .icon { font-size: 24px; line-height: 1; margin-bottom: 10px; }
+.note-card h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.note-card ul { list-style: none; padding: 0; margin: 0; }
+.note-card li {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  padding: 6px 0;
+  line-height: 1.5;
+  display: flex;
+  gap: 8px;
+}
+.note-card li::before {
+  content: '·';
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.note-card li b { color: var(--ink); font-weight: 600; }
+
+/* Checklist */
+.checklist-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.checklist {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px 26px;
+}
+.checklist h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+.checklist ul { list-style: none; padding: 0; margin: 0; }
+.checklist li {
+  padding: 9px 0;
+  border-top: 1px dashed var(--line);
+  font-size: 14px;
+  color: var(--ink-soft);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+.checklist li:first-child { border-top: none; padding-top: 0; }
+.checklist li::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--ink-faint);
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.checklist li b { color: var(--ink); font-weight: 600; }
+
+/* Contact */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.contact-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 22px;
+}
+.contact-card .role {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 6px;
+}
+.contact-card .name {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.contact-card a {
+  color: var(--accent);
+  text-decoration: none;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 13.5px;
+  letter-spacing: 0.04em;
+}
+.contact-card a:hover { text-decoration: underline; }
+
+/* Footer */
+footer {
+  padding: 40px 0;
+  text-align: center;
+  color: var(--ink-faint);
+  font-size: 13px;
+  border-top: 1px solid var(--line);
+}
+footer .mono {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  letter-spacing: 0.06em;
+}
+footer a {
+  color: var(--ink-faint);
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+}
+footer a:hover { color: var(--accent); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .expect-grid { grid-template-columns: repeat(2, 1fr); }
+  .attractions-grid, .notes-grid, .transport-grid, .food-grid, .contact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 800px) {
+  .wrap { padding: 0 20px; }
+  .hero { padding: 56px 0 44px; }
+  .expect-grid,
+  .attractions-grid,
+  .notes-grid,
+  .transport-grid,
+  .food-grid,
+  .contact-grid,
+  .days,
+  .checklist-grid,
+  .room-grid {
+    grid-template-columns: 1fr;
+  }
+  .travel { grid-template-columns: 1fr; gap: 14px; padding: 18px 20px; }
+  .travel-tag { border-right: none; border-bottom: 1px solid var(--line); padding-right: 0; padding-bottom: 12px; flex-direction: row; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .travel-tag .label { margin-top: 0; }
+  .travel-legs { grid-template-columns: 1fr; gap: 12px; }
+  .budget-card { padding: 24px; }
+  .lodging-card { grid-template-columns: 1fr; gap: 12px; padding: 22px; }
+}
+
+/* Map itinerary section — Leaflet */
+.map-section {
+  margin-bottom: 32px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+.map-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  background: #faf8f4;
+  flex-wrap: wrap;
+}
+.map-tab {
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: white;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.map-tab:hover { border-color: var(--accent); color: var(--ink); }
+.map-tab.active {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+.map-tab.race-tab.active { background: var(--accent); border-color: var(--accent); }
+.map-body {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  height: 580px;
+}
+.map-canvas {
+  width: 100%;
+  height: 100%;
+  background: #e9e6df;
+}
+.map-panel {
+  border-left: 1px solid var(--line);
+  overflow-y: auto;
+  padding: 24px 22px;
+  background: var(--bg);
+}
+.map-panel-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.map-panel-title {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+.map-panel-sub {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+.map-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+.map-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.15s;
+}
+.map-action-btn:hover { opacity: 0.85; }
+.map-period {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 18px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.map-period::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.map-period:first-of-type { margin-top: 4px; }
+.stop-card {
+  display: flex;
+  gap: 12px;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  background: white;
+}
+.stop-card:hover { border-color: var(--accent); }
+.stop-card.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.stop-num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+  margin-top: 2px;
+}
+.stop-content { flex: 1; min-width: 0; }
+.stop-time {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+.stop-name {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.stop-desc {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+/* Custom Leaflet pin */
+.leaflet-marker-icon.numbered-pin {
+  background: transparent !important;
+  border: none !important;
+}
+.numbered-pin .pin-inner {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #e85a3c;
+  color: white;
+  border: 3px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  transition: transform 0.15s;
+}
+.numbered-pin.is-active .pin-inner {
+  transform: scale(1.2);
+  background: #1a1a1a;
+}
+.numbered-pin.is-race .pin-inner { background: #d9b454; }
+.leaflet-popup-content-wrapper {
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+}
+.leaflet-popup-content { margin: 10px 14px; font-size: 13px; }
+.leaflet-popup-content b { font-family: 'Fraunces', serif; font-weight: 500; font-size: 14px; }
+
+@media (max-width: 800px) {
+  .map-body { grid-template-columns: 1fr; height: auto; }
+  .map-canvas { height: 360px; }
+  .map-panel { border-left: none; border-top: 1px solid var(--line); max-height: 520px; padding: 20px 18px; }
+}
+
+/* Reveal animation */
+.reveal { opacity: 1; transform: none; transition: opacity 0.6s ease, transform 0.6s ease; }
+.js-loaded .reveal:not(.in) { opacity: 0; transform: translateY(16px); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="serif year">2026</div>
+    <div class="race-tag">🏃‍♂️ Lý Sơn Half Marathon · 28/6</div>
+    <h1>Lý Sơn · <em>4 ngày 3 đêm</em></h1>
+    <p class="lede">Chuyến đi 6 người ra đảo Lý Sơn (Quảng Ngãi) kết hợp giải chạy bán marathon, khám phá "Maldives Việt Nam" và thưởng thức hải sản đặc sản.</p>
+    <div class="meta">
+      <strong>25–28/6/2026</strong>
+      <span class="sep">·</span>
+      <span>4N3Đ</span>
+      <span class="sep">·</span>
+      <span>6 người (5 NL + 1 bé)</span>
+      <span class="sep">·</span>
+      <span>~22 triệu</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">Mục tiêu</div>
+    <h2 class="section-title">Bốn thứ chúng ta muốn từ chuyến đi.</h2>
+    <p class="section-sub">Race là điểm nhấn, nhưng đoàn vẫn cân bằng giữa cổ vũ, khám phá đảo, và một bữa hải sản đáng nhớ — với lịch trình thân thiện cho bé.</p>
+    <div class="expect-grid">
+      <div class="expect-card">
+        <div class="icon">🏃‍♂️</div>
+        <h3>Half Marathon</h3>
+        <p>21km Lý Sơn HM 2026, mục tiêu sub-2:15 → 2:20. Sáng Chủ Nhật 28/6.</p>
+      </div>
+      <div class="expect-card">
+        <div class="icon">🏝️</div>
+        <h3>Đảo Bé · Maldives VN</h3>
+        <p>Cano sang An Bình, tắm Bãi Sau nước xanh ngọc, SUP / kayak khi rảnh.</p>
+      </div>
+      <div class="expect-card">
+        <div class="icon">👨‍👩‍👧</div>
+        <h3>Friendly cho bé</h3>
+        <p>Lịch thoáng, có tuktuk, có khung giờ nghỉ trưa. Mọi điểm tham quan đều phù hợp.</p>
+      </div>
+      <div class="expect-card">
+        <div class="icon">🦐</div>
+        <h3>Hải sản Lý Sơn</h3>
+        <p>Buffet tôm hùm, cua huỳnh đế, ốc cừ, gỏi tỏi. Đặt bàn trước, ăn no một bữa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">Lịch trình</div>
+    <h2 class="section-title">Bốn ngày trên đảo.</h2>
+    <p class="section-sub">Day 1 di chuyển + làm quen đảo. Day 2 main day Đảo Bé + buffet hải sản. Day 3 giữ sức cho race. Day 4 race + về Đà Nẵng.</p>
+
+    <div class="travel">
+      <div class="travel-tag">
+        <div class="icon">🚌</div>
+        <div class="label">Day 00 · Khởi hành</div>
+        <div class="date">Thứ Năm · 25/6/2026 · 5h30 sáng</div>
+      </div>
+      <div class="travel-legs">
+        <div class="leg">
+          <div class="from-to">Đà Nẵng → Sa Kỳ</div>
+          <div class="time">5h30–9h · limousine 16 chỗ · ~3h</div>
+        </div>
+        <div class="leg">
+          <div class="from-to">Sa Kỳ → Đảo Lý Sơn</div>
+          <div class="time">10h15 · tàu cao tốc · ~40 phút</div>
+        </div>
+        <div class="leg">
+          <div class="from-to">→ KS Kim Ngân</div>
+          <div class="time">11h30 · host đón tại cảng</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-section" id="ls-map-section">
+      <div class="map-tabs" role="tablist">
+        <button class="map-tab active" data-day="1" role="tab">Day 1 · T5 25/6</button>
+        <button class="map-tab" data-day="2" role="tab">Day 2 · T6 26/6</button>
+        <button class="map-tab" data-day="3" role="tab">Day 3 · T7 27/6</button>
+        <button class="map-tab race-tab" data-day="4" role="tab">Day 4 · CN 28/6 · 🏃</button>
+      </div>
+      <div class="map-body">
+        <div class="map-canvas" id="ls-map"></div>
+        <div class="map-panel" id="ls-map-panel">
+          <!-- rendered by JS -->
+        </div>
+      </div>
+    </div>
+
+    <div class="days">
+      <div class="day">
+        <div class="day-num">Day 01 · Arrival ⭐</div>
+        <div class="day-date">Thứ Năm · 25/6/2026</div>
+        <h4>Tới đảo — Chùa Hang & Cổng Tò Vò sunset</h4>
+        <div class="day-theme">Theme: Di chuyển & làm quen đảo</div>
+        <div class="slot"><span class="when">5h30</span><p>Khởi hành Đà Nẵng bằng <b>limousine 16 chỗ</b> đặt riêng.</p></div>
+        <div class="slot"><span class="when">9h</span><p>Tới cảng Sa Kỳ, làm thủ tục biên phòng. Buffer 1h phòng kẹt xe.</p></div>
+        <div class="slot"><span class="when">10h15–10h30</span><p>Tàu cao tốc Sa Kỳ → Lý Sơn, 35–45 phút, ~200k/người.</p></div>
+        <div class="slot"><span class="when">11h30</span><p>Check-in <b>KS Kim Ngân</b>. Host đón tại cảng.</p></div>
+        <div class="slot"><span class="when">12h</span><p>Ăn trưa, nghỉ ngơi cho bé ngủ trưa.</p></div>
+        <div class="slot"><span class="when">15h30</span><p>Thuê <b>3 xe máy</b> + <b>1 tuktuk</b> cho gia đình có bé.</p></div>
+        <div class="slot"><span class="when">16h</span><p>Tham quan Chùa Hang → Hang Câu. Đi bộ ngắn, phù hợp bé.</p></div>
+        <div class="slot"><span class="when">18h</span><p>Ngắm hoàng hôn tại <em>Cổng Tò Vò</em>. Điểm chụp ảnh đẹp nhất đảo.</p></div>
+        <div class="slot"><span class="when">19h30</span><p>Ăn tối quán gần KS. Gọi món riêng cho bé.</p></div>
+      </div>
+
+      <div class="day">
+        <div class="day-num">Day 02 · Đảo Bé ⭐⭐</div>
+        <div class="day-date">Thứ Sáu · 26/6/2026</div>
+        <h4>Maldives Việt Nam & buffet hải sản tối</h4>
+        <div class="day-theme">Theme: Maldives Việt Nam + Tiệc hải sản</div>
+        <div class="slot"><span class="when">7h</span><p>Ăn sáng tại KS Kim Ngân.</p></div>
+        <div class="slot"><span class="when">8h</span><p>Cano sang <b>Đảo Bé (An Bình)</b>, 15 phút.</p></div>
+        <div class="slot"><span class="when">8h30–11h30</span><p>Thuê xe điện vòng đảo (50k/người). Tắm biển <b>Bãi Sau</b>. Adults có thể SUP/kayak.</p></div>
+        <div class="slot"><span class="when">12h</span><p>Ăn trưa hải sản tại Đảo Bé.</p></div>
+        <div class="slot"><span class="when">13h</span><p>Về Đảo Lớn bằng cano.</p></div>
+        <div class="slot"><span class="when">13h30–15h30</span><p>Nghỉ trưa tại KS, bé ngủ.</p></div>
+        <div class="slot"><span class="when">16h30</span><p>Tham quan Đài Hoàng Sa + nhà trưng bày. Đi bộ từ KS.</p></div>
+        <div class="slot"><span class="when">19h</span><p>🍻 <em>Buffet hải sản lớn</em>: tôm hùm, ốc cừ, gỏi tỏi, cua huỳnh đế. <b>Đặt bàn trước.</b></p></div>
+      </div>
+
+      <div class="day prerace">
+        <div class="day-num">Day 03 · Pre-race <span class="warn-badge">⚠ Vương giữ sức</span></div>
+        <div class="day-date">Thứ Bảy · 27/6/2026</div>
+        <h4>Đoàn nghỉ ngơi, Vương lên dây cót</h4>
+        <div class="day-theme">Theme: Giữ sức cho race, đoàn thư giãn</div>
+        <div class="slot"><span class="when">6h30</span><p><b>Vương:</b> shake-out run 3–4km + stretching. Warm-up nhẹ.</p></div>
+        <div class="slot"><span class="when">8h</span><p>Ăn sáng cùng đoàn.</p></div>
+        <div class="slot"><span class="when">9h–11h</span><p>Đoàn tự do. Gia đình bé chơi gần biển.</p></div>
+        <div class="slot"><span class="when">12h</span><p>Ăn trưa nhẹ tại KS.</p></div>
+        <div class="slot"><span class="when">14h</span><p>Vương đi <b>nhận race kit</b>.</p></div>
+        <div class="slot"><span class="when">15h</span><p>Đoàn còn lại: <b>cánh đồng tỏi</b> chụp ảnh.</p></div>
+        <div class="slot"><span class="when">18h</span><p>Ăn tối <b>sớm</b>: cơm trắng + cá hấp + ít rau. <em>Tránh đồ sống, bia rượu, đồ chiên.</em></p></div>
+        <div class="slot"><span class="when">21h</span><p>Vương chuẩn bị đồ race: bib, gel, muối, vaseline.</p></div>
+        <div class="slot"><span class="when">21h30</span><p>Vương đi ngủ. Phòng kế bên giữ yên tĩnh.</p></div>
+      </div>
+
+      <div class="day race-day">
+        <div class="day-num">Day 04 · Race day <span class="race-badge">🏃 21km</span></div>
+        <div class="day-date">Chủ Nhật · 28/6/2026</div>
+        <h4>Half Marathon → về Đà Nẵng</h4>
+        <div class="day-theme">Theme: Half Marathon + di chuyển về</div>
+        <div class="slot"><span class="when">4h</span><p>Vương dậy, ăn sáng nhẹ: chuối + bánh mì + cafe.</p></div>
+        <div class="slot"><span class="when">4h30–5h</span><p><em>Race start.</em> Target sub-2:15 → 2:20.</p></div>
+        <div class="slot"><span class="when">6h30</span><p>Đoàn ra cổ vũ ở km cuối. Bé sẽ thích.</p></div>
+        <div class="slot"><span class="when">~7h30</span><p>Vương <b>finish.</b> Chụp ảnh medal.</p></div>
+        <div class="slot"><span class="when">8h</span><p>Về KS tắm + ăn sáng tử tế.</p></div>
+        <div class="slot"><span class="when">9h30</span><p>Check-out. Host Kim Ngân có thể giữ đồ.</p></div>
+        <div class="slot"><span class="when">10h30–11h30</span><p>Tàu Lý Sơn → Sa Kỳ.</p></div>
+        <div class="slot"><span class="when">12h30</span><p>Ăn trưa tại Quảng Ngãi. Vương cần ăn no phục hồi.</p></div>
+        <div class="slot"><span class="when">13h30</span><p>Limousine Sa Kỳ → Đà Nẵng.</p></div>
+        <div class="slot"><span class="when">~17h30</span><p>Về tới Đà Nẵng. 🏠</p></div>
+      </div>
+    </div>
+
+    <div class="travel return-leg">
+      <div class="travel-tag">
+        <div class="icon">🏠</div>
+        <div class="label">Day 04 · Về nhà</div>
+        <div class="date">Chủ Nhật · 28/6/2026 · 17h30</div>
+      </div>
+      <div class="travel-legs">
+        <div class="leg">
+          <div class="from-to">Lý Sơn → Sa Kỳ</div>
+          <div class="time">10h30 · tàu cao tốc · ~45'</div>
+        </div>
+        <div class="leg">
+          <div class="from-to">Trưa Quảng Ngãi</div>
+          <div class="time">12h30 · Vương ăn phục hồi</div>
+        </div>
+        <div class="leg">
+          <div class="from-to">Sa Kỳ → Đà Nẵng</div>
+          <div class="time">13h30 · limousine · ~4h</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">Lưu trú · đã chốt</div>
+    <h2 class="section-title">Khách sạn Kim Ngân.</h2>
+    <p class="section-sub">Host nhiệt tình, có dịch vụ đón tại cảng, cho thuê xe máy, gần shops & nhà hàng. Rating 4.6/5 trên booking platforms.</p>
+    <div class="lodging-card">
+      <div class="lodging-icon">🏡</div>
+      <div class="lodging-info">
+        <div class="lodging-eyebrow">3 đêm · 3 phòng · 4.5 triệu</div>
+        <h3>Khách sạn Kim Ngân</h3>
+        <p class="lodging-address">Thôn Đông, Đảo Lý Sơn, Quảng Ngãi</p>
+        <div class="lodging-stats">
+          <div><strong>4.6/5</strong> · 45 reviews · <a href="tel:+84329438141">+84 329 438 141</a></div>
+          <div>Host nhiệt tình · Đón tại cảng · Cho thuê xe máy <strong>150k/ngày</strong></div>
+        </div>
+        <div class="room-grid">
+          <div class="room"><b>Phòng đôi #1</b>Vương + vợ</div>
+          <div class="room"><b>Phòng family</b>2 vợ chồng + bé</div>
+          <div class="room"><b>Phòng đơn / twin</b>Bạn nam</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">Tham quan</div>
+    <h2 class="section-title">Các điểm tham quan trên đảo.</h2>
+    <p class="section-sub">Lý Sơn là đảo núi lửa cổ, kết hợp di tích Cham, chùa cổ, và cảnh biển. Mọi điểm trong plan đều phù hợp cho bé.</p>
+    <div class="attractions-grid">
+      <div class="attraction">
+        <div class="icon">🌅</div>
+        <h4>Cổng Tò Vò</h4>
+        <p>Di tích quốc gia. Vòm đá tự nhiên cao 2.5m từ dung nham núi lửa, niên đại 3.000–4.000 năm. Không leo lên cổng (đang yếu đi).</p>
+        <div class="tags"><span class="tag sunset">Hoàng hôn đẹp nhất</span><span class="tag kid">OK cho bé</span></div>
+      </div>
+      <div class="attraction">
+        <div class="icon">⛩️</div>
+        <h4>Chùa Hang</h4>
+        <p>Thiên Khổng Thạch Tự — chùa cổ 400 năm trong hang đá lớn nhất Lý Sơn. Hang dài 24m, trần cao 3.2m, diện tích 480m².</p>
+        <div class="tags"><span class="tag kid">OK cho bé</span></div>
+      </div>
+      <div class="attraction">
+        <div class="icon">🪨</div>
+        <h4>Hang Câu</h4>
+        <p>Vách đá dựng đứng dưới chân núi Thới Lới, bị biển bào mòn hàng triệu năm. Tắm biển, chụp ảnh, cắm trại.</p>
+        <div class="tags"><span class="tag water">Tắm biển</span><span class="tag kid">OK cho bé</span></div>
+      </div>
+      <div class="attraction">
+        <div class="icon">🏝️</div>
+        <h4>Đảo Bé (An Bình)</h4>
+        <p>"Maldives Việt Nam", nước xanh ngọc. Bãi Sau, lặn ngắm san hô, SUP, kayak. Cano 15 phút. Xe điện 50k/người đi tất cả điểm.</p>
+        <div class="tags"><span class="tag water">Tắm + SUP</span><span class="tag kid">OK cho bé (áo phao)</span></div>
+      </div>
+      <div class="attraction">
+        <div class="icon">🗿</div>
+        <h4>Đài Hoàng Sa</h4>
+        <p>Tượng đài + nhà trưng bày Hải đội Hoàng Sa. Gắn với lịch sử bảo vệ chủ quyền biển đảo. Đi bộ nhẹ từ KS Kim Ngân.</p>
+        <div class="tags"><span class="tag">Văn hóa lịch sử</span></div>
+      </div>
+      <div class="attraction">
+        <div class="icon">🧄</div>
+        <h4>Cánh đồng tỏi</h4>
+        <p>Đặc sản nổi tiếng nhất Lý Sơn. Chụp ảnh đẹp giữa đồng tỏi xanh & cát trắng núi lửa. Tốt cho mọi đối tượng.</p>
+        <div class="tags"><span class="tag">Chụp ảnh</span><span class="tag kid">OK cho bé</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">Phương tiện</div>
+    <h2 class="section-title">Di chuyển 3 chặng.</h2>
+    <p class="section-sub">Đà Nẵng → cảng Sa Kỳ → Đảo Lý Sơn → trên đảo. Thuê xe riêng cho thoải mái với bé, tàu cao tốc cho chặng biển.</p>
+    <div class="transport-grid">
+      <div class="transport-card">
+        <div class="icon">🚐</div>
+        <h4>Limousine 16 chỗ</h4>
+        <div class="route">ĐN ↔ Cảng Sa Kỳ · khứ hồi</div>
+        <ul>
+          <li><b>~6 triệu VND</b> · ~3–3.5 giờ / chiều</li>
+          <li>Xe riêng cho cả đoàn, thoải mái với bé, kiểm soát giờ giấc</li>
+          <li>Đặt trước <b>ít nhất 1 tuần</b></li>
+        </ul>
+      </div>
+      <div class="transport-card">
+        <div class="icon">⛴️</div>
+        <h4>Tàu cao tốc</h4>
+        <div class="route">Sa Kỳ ↔ Lý Sơn · ~40 phút</div>
+        <ul>
+          <li><b>175–220k/người</b> 1 chiều · trẻ 6–11t giảm 20–30%, dưới 6t miễn phí</li>
+          <li>Hãng: Phú Quốc Express, Super Biển Đông, Chín Nghĩa, An Vĩnh</li>
+          <li>Khung giờ chạy: <b>07:30 – 15:30</b> hàng ngày</li>
+        </ul>
+      </div>
+      <div class="transport-card">
+        <div class="icon">🛵</div>
+        <h4>Trên đảo</h4>
+        <div class="route">Đảo Lớn + cano sang Đảo Bé</div>
+        <ul>
+          <li><b>3 xe máy</b> (4 adults đi đôi) · ~150k/xe/ngày</li>
+          <li><b>1 xe tuktuk</b> cho gia đình có bé</li>
+          <li>Cano Đảo Bé khứ hồi · xe điện trên Đảo Bé 50k/người</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">Ẩm thực</div>
+    <h2 class="section-title">Đặc sản Lý Sơn phải thử.</h2>
+    <p class="section-sub">Đặt bàn nhà hàng hải sản cho 6 người tối Thứ Sáu, đặt trước ít nhất 1 ngày. Day 3 (pre-race) Vương ăn nhẹ, tránh đồ sống và bia rượu.</p>
+    <div class="food-grid">
+      <div class="food-card">
+        <div class="icon">🧄</div>
+        <h4>Tỏi & gỏi tỏi</h4>
+        <p>Đặc sản số 1 Lý Sơn. <b>Gỏi tỏi</b> là món đặc trưng nhất, chỉ có trên đảo. Tỏi cô đơn quý — mang về làm quà.</p>
+      </div>
+      <div class="food-card">
+        <div class="icon">🦞</div>
+        <h4>Cua huỳnh đế · tôm hùm</h4>
+        <p><b>Cua huỳnh đế</b> hải sản cao cấp, vỏ đỏ rực. Tôm hùm fresh từ biển. Để dành cho buffet tối T6.</p>
+      </div>
+      <div class="food-card">
+        <div class="icon">🐚</div>
+        <h4>Ốc cừ</h4>
+        <p>Đặc sản biển Lý Sơn, vỏ xà cừ óng ánh. Hấp gừng hoặc nướng mỡ hành. Giòn ngọt, đậm vị biển.</p>
+      </div>
+      <div class="food-card">
+        <div class="icon">🐟</div>
+        <h4>Cá tà ma</h4>
+        <p>Cá đặc trưng vùng biển Lý Sơn. Thịt chắc, ngọt. Hấp hoặc nướng giấy bạc đều hợp khẩu vị bé.</p>
+      </div>
+      <div class="food-card">
+        <div class="icon">🍮</div>
+        <h4>Rau câu chân vịt</h4>
+        <p>Món tráng miệng đặc trưng — rau câu nấu từ rong biển chân vịt. <b>10k/ly</b> trước Cổng Tò Vò, mát lành.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">Ngân sách</div>
+    <h2 class="section-title">Chi tiết chi phí.</h2>
+    <p class="section-sub">Ước tính cho cả đoàn 6 người, tổng ~22 triệu VND. Trung bình ~3.7 triệu/người, đã bao gồm ăn uống, di chuyển, lưu trú.</p>
+    <div class="budget-card">
+      <h3>Tổng ngân sách · 6 người · 4N3Đ</h3>
+      <p class="sub">Không bao gồm race fee của Vương (đăng ký riêng)</p>
+      <div class="row"><span>Limousine 16 chỗ ĐN ↔ QN khứ hồi<span class="label-sub">Xe riêng</span></span><span class="num">6.000.000</span></div>
+      <div class="row"><span>Tàu Sa Kỳ ↔ Lý Sơn (6 người khứ hồi)<span class="label-sub">Bé giảm giá</span></span><span class="num">2.200.000</span></div>
+      <div class="row"><span>KS Kim Ngân 3 phòng × 3 đêm</span><span class="num">4.500.000</span></div>
+      <div class="row"><span>Ăn uống 4 ngày × 6 người<span class="label-sub">Có bữa hải sản lớn</span></span><span class="num">6.000.000</span></div>
+      <div class="row"><span>3 xe máy 3 ngày + cano Đảo Bé + xe điện</span><span class="num">2.500.000</span></div>
+      <div class="row"><span>Phát sinh, race nutrition, đồ cho bé</span><span class="num">1.000.000</span></div>
+      <div class="row total"><span>Tổng</span><span class="num">22.200.000 VND</span></div>
+      <div class="budget-note">
+        💡 ~<b>3.700.000 VND / người</b> nếu chia đều. Có thể chia theo nhóm (gia đình có bé chia 3 phần, nhóm 2 adults chia 2 phần, single chia 1 phần) — bàn lại trước chuyến đi.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">Lưu ý</div>
+    <h2 class="section-title">Lưu ý quan trọng.</h2>
+    <p class="section-sub">Sáu nhóm lưu ý — giấy tờ qua biên phòng là <b>bắt buộc</b>, các nhóm khác để chuyến đi suôn sẻ.</p>
+    <div class="notes-grid">
+      <div class="note-card warn">
+        <div class="icon">🪪</div>
+        <h4>Giấy tờ — bắt buộc</h4>
+        <ul>
+          <li><b>CCCD bản gốc</b> cho tất cả người lớn (qua biên phòng Sa Kỳ)</li>
+          <li><b>Giấy khai sinh hoặc hộ chiếu</b> cho bé</li>
+          <li><em>KHÔNG</em> chấp nhận bản photo hay ảnh điện thoại</li>
+        </ul>
+      </div>
+      <div class="note-card weather">
+        <div class="icon">☀️</div>
+        <h4>Thời tiết tháng 6</h4>
+        <ul>
+          <li>Nắng gắt, khô (lượng mưa thấp)</li>
+          <li>Biển êm, sóng nhẹ — tàu chạy ổn định</li>
+          <li><b>Check app Windy</b> trước ngày đi (sóng &gt;2m có thể cấm biển)</li>
+          <li>Kem chống nắng SPF50+, mũ rộng vành, kính râm</li>
+        </ul>
+      </div>
+      <div class="note-card kid">
+        <div class="icon">👧</div>
+        <h4>Cho bé</h4>
+        <ul>
+          <li>Áo phao tay khi xuống nước (Bãi Sau, cano)</li>
+          <li>Kem chống nắng <b>cho trẻ em</b> (loại riêng)</li>
+          <li>Mang theo snack quen, sữa</li>
+          <li>Áo dài tay mỏng buổi tối (gió biển)</li>
+        </ul>
+      </div>
+      <div class="note-card race">
+        <div class="icon">🏃</div>
+        <h4>Pre-race (Vương)</h4>
+        <ul>
+          <li>Không ăn đồ lạ, đồ sống ngày T7</li>
+          <li>Mang <b>gel / muối / electrolyte</b> từ ĐN (đảo không có loại quen)</li>
+          <li>Giày race + 1 đôi backup</li>
+          <li>Vaseline / Body Glide chống xước</li>
+          <li>Đồng hồ GPS sạc đầy</li>
+        </ul>
+      </div>
+      <div class="note-card race">
+        <div class="icon">🏃‍♂️</div>
+        <h4>Race day về vội</h4>
+        <ul>
+          <li>Compression sleeves cho chân</li>
+          <li>Dép xỏ ngón thoải mái cho hành trình về</li>
+          <li>Nước điện giải + chuối / bánh mì sau race</li>
+        </ul>
+      </div>
+      <div class="note-card warn">
+        <div class="icon">📋</div>
+        <h4>Đặt trước</h4>
+        <ul>
+          <li>Limousine 16 chỗ (sớm 1 tuần)</li>
+          <li>KS Kim Ngân — gọi <b>+84 329 438 141</b></li>
+          <li>Vé tàu cao tốc (online qua taucaotocphuquoc.com)</li>
+          <li>Bàn nhà hàng hải sản tối T6</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">Checklist</div>
+    <h2 class="section-title">Trước khi đi & mang theo.</h2>
+    <p class="section-sub">In ra hoặc lưu lại để tick từng dòng — đặc biệt là giấy tờ và đồ race.</p>
+    <div class="checklist-grid">
+      <div class="checklist">
+        <h4>📋 Trước khi đi</h4>
+        <ul>
+          <li>Đặt <b>vé tàu cao tốc khứ hồi</b> 6 người</li>
+          <li>Đặt <b>KS Kim Ngân</b> 3 phòng × 3 đêm</li>
+          <li>Thuê <b>limousine 16 chỗ</b> ĐN ↔ Sa Kỳ</li>
+          <li>Đăng ký <b>race Lý Sơn HM 2026</b> (Vương)</li>
+          <li>Đặt bàn nhà hàng hải sản tối T6</li>
+          <li>Chuẩn bị <b>CCCD / giấy khai sinh</b> đầy đủ</li>
+        </ul>
+      </div>
+      <div class="checklist">
+        <h4>🎒 Mang theo</h4>
+        <ul>
+          <li><b>Giấy tờ tùy thân</b> (gốc — không bản photo)</li>
+          <li>Đồ race của Vương (bib, gel, giày, đồ chạy)</li>
+          <li>Áo phao tay + đồ bơi cho cả đoàn</li>
+          <li>Kem chống nắng SPF50+, mũ, kính</li>
+          <li>Thuốc cơ bản, <b>kẹo gừng</b> (say sóng)</li>
+          <li>Sạc dự phòng, máy ảnh</li>
+          <li><b>Tiền mặt</b> (đảo nhiều chỗ chưa nhận chuyển khoản)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">Liên hệ</div>
+    <h2 class="section-title">Số điện thoại hữu ích.</h2>
+    <p class="section-sub">Lưu sẵn vào điện thoại trước chuyến đi.</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="role">Lưu trú</div>
+        <div class="name">KS Kim Ngân</div>
+        <a href="tel:+84329438141">+84 329 438 141</a>
+      </div>
+      <div class="contact-card">
+        <div class="role">Vé tàu</div>
+        <div class="name">Phòng vé tàu Sa Kỳ</div>
+        <a href="tel:+840976575442">0976 575 442</a><br>
+        <a href="tel:+840934299494">0934 299 494</a>
+      </div>
+      <div class="contact-card">
+        <div class="role">Tàu giường nằm</div>
+        <div class="name">Tàu Phú Sơn</div>
+        <a href="tel:1900599997">1900 59 99 97</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">LÝ SƠN TRIP 2026</span> · 25–28/6/2026 · 6 người + 1 bé · 22tr ngân sách<br>
+    <a href="https://github.com/minhvuongrbs/lyson2026" target="_blank" rel="noopener">github.com/minhvuongrbs/lyson2026</a>
+  </div>
+</footer>
+
+<script>
+(function() {
+  if (!('IntersectionObserver' in window)) return;
+  document.body.classList.add('js-loaded');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+  const items = document.querySelectorAll('.expect-card, .attraction, .transport-card, .food-card, .note-card, .day, .lodging-card, .travel, .budget-card, .checklist, .contact-card');
+  items.forEach(el => { el.classList.add('reveal'); observer.observe(el); });
+  setTimeout(() => { items.forEach(el => el.classList.add('in')); }, 1500);
+})();
+</script>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+// Lý Sơn itinerary map data
+const LS_DAYS = {
+  1: {
+    eyebrow: 'Day 1 · Thứ Năm 25/6',
+    title: 'Arrival + Chùa Hang + Cổng Tò Vò sunset',
+    subtitle: 'Di chuyển từ ĐN ra đảo, làm quen Lý Sơn. Cụm điểm gần KS + sunset tại Cổng Tò Vò.',
+    stops: [
+      { num: 1, time: '~11h30', period: 'Sáng',  name: 'Cảng Lý Sơn',              desc: 'Tàu cao tốc cập bến. Host KS Kim Ngân đón.',                       lat: 15.3823, lng: 109.1086 },
+      { num: 2, time: '~11h45', period: 'Sáng',  name: 'KS Kim Ngân',              desc: 'Check-in. Phòng đôi + family + đơn. Tắm rửa, nghỉ.',               lat: 15.3850, lng: 109.1480 },
+      { num: 3, time: '12h',    period: 'Trưa',  name: 'Quán trưa gần KS',         desc: 'Ăn trưa nhẹ. Bé ngủ trưa 1–2h.',                                   lat: 15.3845, lng: 109.1475 },
+      { num: 4, time: '16h',    period: 'Chiều', name: 'Chùa Hang',                desc: 'Thiên Khổng Thạch Tự — chùa cổ 400 năm trong hang đá.',            lat: 15.3892, lng: 109.1558 },
+      { num: 5, time: '16h45',  period: 'Chiều', name: 'Hang Câu',                 desc: 'Vách đá dựng đứng dưới chân Thới Lới, tắm biển nhẹ.',              lat: 15.3868, lng: 109.1480 },
+      { num: 6, time: '18h',    period: 'Chiều', name: 'Cổng Tò Vò · sunset',      desc: 'Vòm đá núi lửa 3000 năm. Điểm chụp ảnh đẹp nhất đảo.',             lat: 15.3818, lng: 109.0997 },
+      { num: 7, time: '19h30',  period: 'Tối',   name: 'Ăn tối quán gần KS',       desc: 'Gọi món riêng cho bé. Ngủ sớm.',                                    lat: 15.3845, lng: 109.1475 }
+    ]
+  },
+  2: {
+    eyebrow: 'Day 2 · Thứ Sáu 26/6',
+    title: 'Đảo Bé "Maldives VN" + buffet hải sản ⭐⭐',
+    subtitle: 'Main day. Sáng cano sang Đảo Bé tắm Bãi Sau. Chiều Đài Hoàng Sa. Tối buffet hải sản đặt trước.',
+    stops: [
+      { num: 1, time: '7h',     period: 'Sáng',  name: 'Ăn sáng tại KS',          desc: 'Ăn sáng trước khi đi Đảo Bé.',                                      lat: 15.3850, lng: 109.1480 },
+      { num: 2, time: '8h',     period: 'Sáng',  name: 'Cano sang Đảo Bé',        desc: '15 phút. Cano từ cảng Lý Sơn.',                                     lat: 15.3823, lng: 109.1086 },
+      { num: 3, time: '8h30',   period: 'Sáng',  name: 'Bãi Sau · Đảo Bé',        desc: 'Nước xanh ngọc. Xe điện vòng đảo 50k/người. SUP/kayak.',            lat: 15.4080, lng: 109.0735 },
+      { num: 4, time: '12h',    period: 'Trưa',  name: 'Hải sản trên Đảo Bé',     desc: 'Ăn trưa hải sản tươi tại đảo.',                                     lat: 15.4070, lng: 109.0748 },
+      { num: 5, time: '13h',    period: 'Trưa',  name: 'Về Đảo Lớn',              desc: 'Cano về. Nghỉ trưa 13h30–15h30, bé ngủ.',                            lat: 15.3823, lng: 109.1086 },
+      { num: 6, time: '16h30',  period: 'Chiều', name: 'Đài Hoàng Sa',            desc: 'Tượng đài + nhà trưng bày Hải đội Hoàng Sa. Đi bộ từ KS.',          lat: 15.3795, lng: 109.1418 },
+      { num: 7, time: '19h',    period: 'Tối',   name: 'Buffet hải sản 🍻',       desc: 'Tôm hùm, ốc cừ, gỏi tỏi, cua huỳnh đế. ĐẶT BÀN TRƯỚC.',             lat: 15.3848, lng: 109.1465 }
+    ]
+  },
+  3: {
+    eyebrow: 'Day 3 · Thứ Bảy 27/6',
+    title: 'Pre-race — Vương giữ sức ⚠',
+    subtitle: 'Day nghỉ ngơi. Sáng Vương shake-out, chiều nhận race kit. Đoàn còn lại chụp ảnh cánh đồng tỏi.',
+    stops: [
+      { num: 1, time: '6h30',   period: 'Sáng',  name: 'Shake-out 3–4km',         desc: 'Vương chạy nhẹ + stretching dọc bờ biển gần KS.',                   lat: 15.3845, lng: 109.1475 },
+      { num: 2, time: '8h',     period: 'Sáng',  name: 'Ăn sáng cùng đoàn',       desc: 'Tại KS Kim Ngân. Đoàn tự do sau đó.',                                lat: 15.3850, lng: 109.1480 },
+      { num: 3, time: '14h',    period: 'Chiều', name: 'Nhận race kit',           desc: 'Vương ra điểm nhận bib + áo race.',                                  lat: 15.3815, lng: 109.1135 },
+      { num: 4, time: '15h',    period: 'Chiều', name: 'Cánh đồng tỏi',           desc: 'Đoàn còn lại chụp ảnh. Đặc sản Lý Sơn.',                             lat: 15.3853, lng: 109.1085 },
+      { num: 5, time: '18h',    period: 'Chiều', name: 'Ăn tối sớm',              desc: 'Cơm trắng + cá hấp + ít rau. Tránh đồ sống, bia rượu.',              lat: 15.3848, lng: 109.1470 },
+      { num: 6, time: '21h30',  period: 'Tối',   name: 'Vương đi ngủ',            desc: 'Phòng yên tĩnh. Bib + gel + đồ race đã chuẩn bị từ 21h.',            lat: 15.3850, lng: 109.1480 }
+    ]
+  },
+  4: {
+    eyebrow: 'Day 4 · Chủ Nhật 28/6 · 🏃 RACE',
+    title: 'Half Marathon 21km → về Đà Nẵng',
+    subtitle: 'Race start 4h30–5h, target sub-2:15 → 2:20. Finish ~7h30. Check-out 9h30, tàu 10h30, về ĐN ~17h30.',
+    stops: [
+      { num: 1, time: '4h',     period: 'Sáng',  name: 'Vương dậy, ăn sáng nhẹ',  desc: 'Chuối + bánh mì + cafe. Mặc đồ race.',                              lat: 15.3850, lng: 109.1480 },
+      { num: 2, time: '4h30',   period: 'Sáng',  name: 'Race start 🏃',           desc: 'Vạch xuất phát Lý Sơn HM. Target sub-2:20.',                         lat: 15.3815, lng: 109.1135 },
+      { num: 3, time: '6h30',   period: 'Sáng',  name: 'Đoàn ra cổ vũ km cuối',   desc: 'Gần vạch đích, bé sẽ thích.',                                        lat: 15.3805, lng: 109.1115 },
+      { num: 4, time: '~7h30',  period: 'Sáng',  name: 'Finish line 🎉',          desc: 'Vương về đích. Chụp ảnh medal.',                                     lat: 15.3815, lng: 109.1135 },
+      { num: 5, time: '9h30',   period: 'Sáng',  name: 'Check-out KS',            desc: 'Host giữ đồ nếu cần. Pack đồ race riêng.',                           lat: 15.3850, lng: 109.1480 },
+      { num: 6, time: '10h30',  period: 'Sáng',  name: 'Tàu Lý Sơn → Sa Kỳ',      desc: '45 phút trên biển.',                                                 lat: 15.3823, lng: 109.1086 },
+      { num: 7, time: '12h30',  period: 'Trưa',  name: 'Trưa Quảng Ngãi',         desc: 'Vương ăn no phục hồi. Cơm gà / bún cá địa phương.',                  lat: 15.1200, lng: 108.7970 },
+      { num: 8, time: '~17h30', period: 'Chiều', name: 'Về tới Đà Nẵng 🏠',       desc: 'Limousine cập ĐN. Kết thúc chuyến đi.',                              lat: 16.0600, lng: 108.2220 }
+    ]
+  }
+};
+
+(function initLSMap() {
+  const mapEl = document.getElementById('ls-map');
+  const panelEl = document.getElementById('ls-map-panel');
+  if (!mapEl || !panelEl || typeof L === 'undefined') return;
+
+  const LS_CENTER = [15.387, 109.115];
+  const map = L.map(mapEl, { scrollWheelZoom: false, zoomControl: true })
+    .setView(LS_CENTER, 13);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  let dayLayer = L.layerGroup().addTo(map);
+  let activeDay = 1;
+  let activeStop = null;
+  const markersByNum = new Map();
+
+  function makePinIcon(num, isActive, isRace) {
+    let cls = 'numbered-pin';
+    if (isActive) cls += ' is-active';
+    if (isRace) cls += ' is-race';
+    return L.divIcon({
+      className: cls,
+      html: `<div class="pin-inner">${num}</div>`,
+      iconSize: [30, 30],
+      iconAnchor: [15, 15]
+    });
+  }
+
+  function highlightStop(num, fromMap) {
+    activeStop = num;
+    panelEl.querySelectorAll('.stop-card').forEach(c => {
+      c.classList.toggle('active', Number(c.dataset.num) === num);
+    });
+    markersByNum.forEach((m, n) => {
+      m.setIcon(makePinIcon(n, n === num, activeDay === 4));
+    });
+    if (!fromMap) {
+      const target = markersByNum.get(num);
+      if (target) map.flyTo(target.getLatLng(), Math.max(map.getZoom(), 14), { duration: 0.6 });
+    } else {
+      const card = panelEl.querySelector(`.stop-card[data-num="${num}"]`);
+      if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  function renderDay(dayKey) {
+    activeDay = dayKey;
+    activeStop = null;
+    const day = LS_DAYS[dayKey];
+    if (!day) return;
+
+    document.querySelectorAll('#ls-map-section .map-tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.day === String(dayKey));
+    });
+
+    dayLayer.clearLayers();
+    markersByNum.clear();
+    const latlngs = day.stops.map(s => [s.lat, s.lng]);
+    const isRace = dayKey === 4;
+
+    L.polyline(latlngs, {
+      color: isRace ? '#d9b454' : '#e85a3c',
+      weight: 3,
+      opacity: 0.7,
+      dashArray: '6 8'
+    }).addTo(dayLayer);
+
+    day.stops.forEach(s => {
+      const m = L.marker([s.lat, s.lng], { icon: makePinIcon(s.num, false, isRace) })
+        .bindPopup(`<b>${s.num}. ${s.name}</b><br>${s.time}`)
+        .on('click', () => highlightStop(s.num, true));
+      m.addTo(dayLayer);
+      markersByNum.set(s.num, m);
+    });
+
+    map.flyToBounds(L.latLngBounds(latlngs).pad(0.18), { duration: 0.5 });
+
+    const origin = `${day.stops[0].lat},${day.stops[0].lng}`;
+    const dest = `${day.stops.at(-1).lat},${day.stops.at(-1).lng}`;
+    const middleWpts = day.stops.slice(1, -1).map(s => `${s.lat},${s.lng}`).join('|');
+    const routeUrl = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}` +
+      (middleWpts ? `&waypoints=${encodeURIComponent(middleWpts)}` : '') +
+      `&travelmode=driving`;
+
+    let html = `
+      <div class="map-panel-eyebrow">${day.eyebrow}</div>
+      <h3 class="map-panel-title">${day.title}</h3>
+      <p class="map-panel-sub">${day.subtitle}</p>
+      <div class="map-actions">
+        <a class="map-action-btn" href="${routeUrl}" target="_blank" rel="noopener">
+          <span aria-hidden="true">↗</span> Mở route trong Google Maps
+        </a>
+      </div>
+    `;
+
+    let lastPeriod = null;
+    day.stops.forEach(s => {
+      if (s.period !== lastPeriod) {
+        html += `<div class="map-period">${s.period}</div>`;
+        lastPeriod = s.period;
+      }
+      html += `
+        <div class="stop-card" data-num="${s.num}">
+          <div class="stop-num">${s.num}</div>
+          <div class="stop-content">
+            <div class="stop-time">${s.time}</div>
+            <div class="stop-name">${s.name}</div>
+            <div class="stop-desc">${s.desc}</div>
+          </div>
+        </div>
+      `;
+    });
+
+    panelEl.innerHTML = html;
+    panelEl.querySelectorAll('.stop-card').forEach(card => {
+      card.addEventListener('click', () => {
+        highlightStop(Number(card.dataset.num), false);
+      });
+    });
+  }
+
+  document.querySelectorAll('#ls-map-section .map-tab').forEach(tab => {
+    tab.addEventListener('click', () => renderDay(Number(tab.dataset.day)));
+  });
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          renderDay(1);
+          setTimeout(() => map.invalidateSize(), 80);
+          io.unobserve(mapEl);
+        }
+      });
+    }, { rootMargin: '120px' });
+    io.observe(mapEl);
+  } else {
+    renderDay(1);
+  }
+})();
+</script>
+
+</body>
+</html>

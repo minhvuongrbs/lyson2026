@@ -97,6 +97,35 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
+.hero-image {
+  margin-top: 44px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  aspect-ratio: 21 / 9;
+  background: #1a1a1a;
+}
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-image .caption {
+  position: absolute;
+  left: 22px;
+  bottom: 18px;
+  color: #fff;
+  font-family: 'Fraunces', serif;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(6px);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 400;
+}
 
 /* Generic section */
 section { padding: 72px 0; border-top: 1px solid var(--line); }
@@ -298,6 +327,92 @@ section { padding: 72px 0; border-top: 1px solid var(--line); }
 .slot p { color: var(--ink-soft); line-height: 1.5; }
 .slot p b { color: var(--ink); font-weight: 600; }
 .slot p em { color: var(--accent); font-style: normal; font-weight: 500; }
+
+/* Gallery — Cảnh sắc Lý Sơn */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 160px;
+  gap: 12px;
+}
+.gallery-item {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #1a1a1a;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.gallery-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.gallery-item:hover img { transform: scale(1.04); }
+.gallery-item .cap {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 28px 16px 14px;
+  color: #fff;
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%);
+  line-height: 1.3;
+}
+.gallery-item .cap small {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-bottom: 3px;
+}
+.gallery-item.span-2 { grid-column: span 2; }
+.gallery-item.span-3 { grid-column: span 3; }
+.gallery-item.span-4 { grid-column: span 4; }
+.gallery-item.row-2 { grid-row: span 2; }
+.gallery-item.race { box-shadow: 0 4px 16px rgba(232, 90, 60, 0.18); }
+.gallery-item.race .cap small { color: #ffd6cc; }
+
+/* Race banner inside Day 04 card */
+.race-banner {
+  margin: 4px 0 14px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #1a1a1a;
+}
+.race-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.race-banner .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.55) 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 14px 16px;
+}
+.race-banner .overlay span {
+  color: #fff;
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+.race-banner .overlay span b {
+  font-weight: 600;
+  color: #ffd6cc;
+}
 
 /* Lodging card */
 .lodging-card {
@@ -657,6 +772,9 @@ footer a:hover { color: var(--accent); }
   .attractions-grid, .notes-grid, .transport-grid, .food-grid, .contact-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .gallery-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 140px; }
+  .gallery-item.span-3, .gallery-item.span-4 { grid-column: span 2; }
+  .gallery-item.span-2 { grid-column: span 2; }
 }
 @media (max-width: 800px) {
   .wrap { padding: 0 20px; }
@@ -678,6 +796,10 @@ footer a:hover { color: var(--accent); }
   .travel-legs { grid-template-columns: 1fr; gap: 12px; }
   .budget-card { padding: 24px; }
   .lodging-card { grid-template-columns: 1fr; gap: 12px; padding: 22px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 130px; }
+  .gallery-item.span-2, .gallery-item.span-3, .gallery-item.span-4 { grid-column: span 2; }
+  .gallery-item.row-2 { grid-row: span 1; }
+  .hero-image { aspect-ratio: 16 / 10; margin-top: 32px; }
 }
 
 /* Map itinerary section — Leaflet */
@@ -908,6 +1030,10 @@ footer a:hover { color: var(--accent); }
       <span class="sep">·</span>
       <span>~22 triệu</span>
     </div>
+    <div class="hero-image">
+      <img src="images/ly-son-hero.jpg" alt="Bãi biển Lý Sơn lúc hoàng hôn — vách đá núi lửa, sóng mềm, vỏ ốc trên cát" loading="lazy">
+      <div class="caption">Bãi biển Lý Sơn · vách đá núi lửa cổ</div>
+    </div>
   </div>
 </section>
 
@@ -936,6 +1062,40 @@ footer a:hover { color: var(--accent); }
         <div class="icon">🦐</div>
         <h3>Hải sản Lý Sơn</h3>
         <p>Buffet tôm hùm, cua huỳnh đế, ốc cừ, gỏi tỏi. Đặt bàn trước, ăn no một bữa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-eyebrow">Cảnh sắc</div>
+    <h2 class="section-title">Lý Sơn qua ảnh.</h2>
+    <p class="section-sub">Đảo núi lửa cổ giữa biển miền Trung — vách đá basalt, chùa cổ trong hang đá, đồng tỏi xanh, và một đường chạy bán marathon ngập cờ đỏ ven biển.</p>
+    <div class="gallery-grid">
+      <div class="gallery-item span-4 row-2 race">
+        <img src="images/flag.jpg" alt="Đường chạy Lý Sơn Cross Island Half Marathon — cờ đỏ rực rỡ hai bên, runners chạy ven cảng cá" loading="lazy">
+        <div class="cap"><small>🏃 Lý Sơn HM · 28.06.2026</small>Đường chạy ven biển ngập cờ đỏ — đích đến của 4 runners đoàn mình.</div>
+      </div>
+      <div class="gallery-item span-2">
+        <img src="images/dao-be.jpg" alt="Đảo Bé với nước biển xanh ngọc và thuyền thúng đầy màu sắc" loading="lazy">
+        <div class="cap"><small>Đảo Bé · An Bình</small>Maldives Việt Nam — Day 2.</div>
+      </div>
+      <div class="gallery-item span-2">
+        <img src="images/ly-son-pano-22.jpg" alt="Chùa Hang — chùa cổ 400 năm trong hang đá lớn nhất Lý Sơn" loading="lazy">
+        <div class="cap"><small>Chùa Hang</small>Thiên Khổng Thạch Tự — 400 năm trong hang.</div>
+      </div>
+      <div class="gallery-item span-2">
+        <img src="images/ly-son-pano-15.jpg" alt="Tượng Quan Âm trắng nhìn ra biển trên đảo Lý Sơn" loading="lazy">
+        <div class="cap"><small>Quan Âm Tự</small>Tượng trắng nhìn ra biển Đông.</div>
+      </div>
+      <div class="gallery-item span-2">
+        <img src="images/ly-son-pano-03.jpg" alt="Cổng đền chạm khắc rồng phượng rực rỡ ở Lý Sơn" loading="lazy">
+        <div class="cap"><small>Đền cổ trên đảo</small>Di sản văn hoá Cù Lao Ré.</div>
+      </div>
+      <div class="gallery-item span-2">
+        <img src="images/thoi-loi.jpg" alt="Hồ nước ngọt trên đỉnh núi lửa Thới Lới — cao 169m, nhìn xuống biển" loading="lazy">
+        <div class="cap"><small>Đỉnh Thới Lới · 169m</small>Hồ nước ngọt trên miệng núi lửa cổ.</div>
       </div>
     </div>
   </div>
@@ -1037,6 +1197,10 @@ footer a:hover { color: var(--accent); }
         <div class="day-date">Chủ Nhật · 28/6/2026</div>
         <h4>Half Marathon → về Đà Nẵng</h4>
         <div class="day-theme">Theme: Half Marathon + di chuyển về</div>
+        <div class="race-banner">
+          <img src="images/flag.jpg" alt="Đường chạy Lý Sơn Cross Island ngập cờ đỏ ven cảng cá" loading="lazy">
+          <div class="overlay"><span><b>Lý Sơn Cross Island</b> · cờ đỏ ven cảng cá, 21km</span></div>
+        </div>
         <div class="slot"><span class="when">4h</span><p>4 runners dậy, ăn sáng nhẹ: chuối + bánh mì + cafe.</p></div>
         <div class="slot"><span class="when">4h30–5h</span><p><em>Race start.</em> 4 thành viên chạy cùng nhau, 21km.</p></div>
         <div class="slot"><span class="when">6h30</span><p>Đoàn ra cổ vũ ở km cuối. Bé sẽ thích.</p></div>
@@ -1389,7 +1553,7 @@ footer a:hover { color: var(--accent); }
       }
     });
   }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
-  const items = document.querySelectorAll('.expect-card, .attraction, .transport-card, .food-card, .note-card, .day, .lodging-card, .travel, .budget-card, .checklist, .contact-card');
+  const items = document.querySelectorAll('.expect-card, .attraction, .transport-card, .food-card, .note-card, .day, .lodging-card, .travel, .budget-card, .checklist, .contact-card, .gallery-item, .hero-image');
   items.forEach(el => { el.classList.add('reveal'); observer.observe(el); });
   setTimeout(() => { items.forEach(el => el.classList.add('in')); }, 1500);
 })();

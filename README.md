@@ -20,9 +20,8 @@
 
 ## 👥 Thành Phần Đoàn
 
-- **Nhóm 1**: Vương + vợ (Vương race HM)
-- **Nhóm 2**: Bạn nam (1 người)
-- **Nhóm 3**: Gia đình 3 người (2 vợ chồng + 1 bé gái)
+- **Người lớn**: 5 (4 thành viên chạy HM, 1 cổ vũ)
+- **Trẻ em**: 1 bé gái (cổ vũ)
 
 ---
 
@@ -65,15 +64,15 @@
 
 | Giờ | Hoạt động | Ghi chú |
 |---|---|---|
-| 06:30 | Vương: shake-out 3-4km + stretching | Warm-up nhẹ |
+| 06:30 | Runners: shake-out 3-4km + stretching | Warm-up nhẹ |
 | 08:00 | Ăn sáng cùng đoàn | |
 | 09:00-11:00 | Đoàn tự do | Gia đình bé chơi gần biển |
 | 12:00 | Ăn trưa nhẹ tại KS | |
-| 14:00 | Vương đi nhận race kit | |
+| 14:00 | Runners nhận race kit | |
 | 15:00 | Đoàn còn lại: cánh đồng tỏi chụp ảnh | |
 | 18:00 | Ăn tối SỚM | Cơm trắng + cá hấp + ít rau. **Tránh đồ sống, bia rượu, đồ chiên** |
-| 21:00 | Vương chuẩn bị đồ race | Bib, gel, muối, vaseline |
-| 21:30 | Vương đi ngủ | Phòng kế bên giữ yên tĩnh |
+| 21:00 | Runners chuẩn bị đồ race | Bib, gel, muối, vaseline |
+| 21:30 | Runners đi ngủ | Phòng kế bên giữ yên tĩnh |
 
 ### Ngày 4 — Chủ Nhật 28/6/2026: RACE DAY + Về
 
@@ -81,14 +80,14 @@
 
 | Giờ | Hoạt động | Ghi chú |
 |---|---|---|
-| 04:00 | Vương dậy, ăn sáng nhẹ | Chuối + bánh mì + cafe |
-| 04:30-05:00 | Race start | Target sub-2:15 to 2:20 |
+| 04:00 | Runners dậy, ăn sáng nhẹ | Chuối + bánh mì + cafe |
+| 04:30-05:00 | Race start | 4 thành viên cùng chạy, 21km |
 | 06:30 | Đoàn ra cổ vũ ở km cuối | Bé sẽ thích |
-| ~07:30 | Vương finish | Chụp ảnh medal |
+| ~07:30 | Đoàn finish | Chụp ảnh medal cùng nhau |
 | 08:00 | Về KS tắm + ăn sáng tử tế | |
 | 09:30 | Check-out | Host Kim Ngân có thể giữ đồ |
 | 10:30-11:30 | Tàu Lý Sơn → Sa Kỳ | |
-| 12:30 | Ăn trưa tại Quảng Ngãi | Vương cần ăn no phục hồi |
+| 12:30 | Ăn trưa tại Quảng Ngãi | Runners cần ăn no phục hồi |
 | 13:30 | Limousine Sa Kỳ → Đà Nẵng | |
 | ~17:30 | Về tới Đà Nẵng 🏠 | |
 
@@ -136,7 +135,7 @@
 | **Dịch vụ** | Đón tại cảng |
 
 ### Phân Bổ Phòng (3 phòng)
-1. **Phòng đôi #1** — Vương + vợ
+1. **Phòng đôi #1** — 2 adults
 2. **Phòng family** — Gia đình 3 người (2 vợ chồng + bé)
 3. **Phòng đơn/twin** — Bạn nam
 
@@ -175,7 +174,7 @@
 | Phát sinh, race nutrition, đồ cho bé | 1,000,000 | |
 | **TỔNG** | **22,200,000** | **~3.7tr/người** |
 
-> 💡 **Không bao gồm**: Race fee của Vương (đăng ký riêng)
+> 💡 **Không bao gồm**: Race fee của 4 runners (đăng ký riêng)
 
 ---
 
@@ -213,7 +212,7 @@
 - Mang theo snack quen, sữa
 - Áo dài tay mỏng buổi tối (gió biển)
 
-### Pre-race (cho Vương)
+### Pre-race (4 runners)
 - Không ăn đồ lạ, đồ sống ngày T7
 - Mang gel/muối/electrolyte từ ĐN (đảo không có loại quen)
 - Giày race + 1 đôi backup
@@ -249,13 +248,13 @@
 - [ ] Đặt vé tàu cao tốc khứ hồi 6 người
 - [ ] Đặt KS Kim Ngân 3 phòng × 3 đêm
 - [ ] Thuê limousine 16 chỗ ĐN ↔ Sa Kỳ
-- [ ] Đăng ký race Lý Sơn HM 2026 (Vương)
+- [ ] Đăng ký race Lý Sơn HM 2026 (4 runners)
 - [ ] Đặt bàn nhà hàng hải sản tối T6
 - [ ] Chuẩn bị CCCD/giấy khai sinh đầy đủ
 
 ### Mang theo
 - [ ] Giấy tờ tùy thân (gốc)
-- [ ] Đồ race của Vương (bib, gel, giày, đồ chạy)
+- [ ] Đồ race của 4 runners (bib, gel, giày, đồ chạy)
 - [ ] Áo phao tay + đồ bơi cho cả đoàn
 - [ ] Kem chống nắng, mũ, kính
 - [ ] Thuốc cơ bản, kẹo gừng (say sóng)
